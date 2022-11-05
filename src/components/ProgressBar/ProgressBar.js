@@ -8,60 +8,44 @@ import VisuallyHidden from "../VisuallyHidden";
 const ProgressBar = ({ value, size, width }) => {
   const sizeStyle = sizes[size];
   return (
-    <>
-      <VisuallyHidden>
-        <label htmlFor="progress-steps">Progress Bar</label>
-      </VisuallyHidden>
-      <Progress
-        id="progress-steps"
-        max="100"
-        value={value}
-        style={sizeStyle}
-        width={width}
-      ></Progress>
-    </>
+    <Wrapper
+      role="progressbar"
+      aria-valuenow={value}
+      aria-valuemin="0"
+      aria-valuemax="100"
+      style={sizeStyle}
+    >
+      <BarWrapper>
+        <Bar style={{ "--width": `${value}%` }} />
+      </BarWrapper>
+      <VisuallyHidden>{value}%</VisuallyHidden>
+    </Wrapper>
   );
 };
 
-const Progress = styled.progress`
-  --slider-width: ${(props) => props.value}%;
-  -webkit-appearance: none;
+const Wrapper = styled.div`
+  padding: var(--padding);
+  border-radius: var(--radius, 4px);
+  background-color: ${COLORS.transparentGray15};
+  box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
+`;
+
+const Bar = styled.div`
   position: relative;
-  height: var(--height) !important;
-  width: ${(props) => props.width};
-
-  &::-webkit-progress-bar {
-    background: ${COLORS.transparentGray15};
-    box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
-    border-radius: var(--radius, 4px);
-    padding: var(--padding);
-  }
-
-  &[value]::-webkit-progress-value {
-    background-color: ${COLORS.primary};
-    border-radius: 4px 0 0 4px;
-    ${(props) =>
-      props.value >= 90
-        ? `
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
-  `
-        : props.value === 100
-        ? `
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-  `
-        : "0"}
-  }
+  --slider-width: ${(props) => props.value}%;
+  background-color: ${COLORS.primary};
+  height: calc(var(--height) - (var(--padding, 0px) * 2));
+  width: var(--width);
+  border-radius: 4px 0 0 4px;
 
   &::after {
     content: "";
     position: absolute;
-    width: calc(var(--slider-width) - (var(--padding, 0px) * 2));
-    height: calc(var(--height) - (var(--padding, 0px) * 2));
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     background-color: #fff;
-    top: var(--padding, 0);
-    left: var(--padding, 0);
     opacity: 0;
     transform: translateX(-100%);
     animation: slide 2.4s cubic-bezier(0.23, 1, 0.32, 1) infinite;
@@ -92,6 +76,11 @@ const Progress = styled.progress`
       }
     }
   }
+`;
+
+const BarWrapper = styled.div`
+  border-radius: 4px;
+  overflow: hidden;
 `;
 
 const sizes = {

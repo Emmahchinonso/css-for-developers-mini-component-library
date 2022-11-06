@@ -18,7 +18,7 @@ const Select = ({ label, value, onChange, children }) => {
         </NativeSelect>
         <PresentationalBit>
           <span>{displayedValue}</span>
-          <Icon id="chevron-down" />
+          <Icon id="chevron-down" strokeWidth="2" />
         </PresentationalBit>
       </Container>
     </>
@@ -27,11 +27,8 @@ const Select = ({ label, value, onChange, children }) => {
 
 const Container = styled.label`
   position: relative;
-  padding: 12px 18px 12px 16px;
   cursor: pointer;
-  border: 1px solid var(--select-border);
-  border-radius: 8px;
-  background-color: ${COLORS.transparentGray15};
+  display: inline-block;
   font-size: 1rem;
   line-height: 1.1;
 `;
@@ -41,6 +38,10 @@ const PresentationalBit = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 24px;
+  padding: 12px 18px 12px 16px;
+  background-color: ${COLORS.transparentGray15};
+  border: 1px solid var(--select-border);
+  border-radius: 8px;
   color: ${COLORS.gray700};
   font-size: inherit;
   line-height: inherit;
@@ -53,13 +54,21 @@ const NativeSelect = styled.select`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: red;
   border: none;
+  background-color: transparent;
+  opacity: 0;
   margin: 0;
   font-family: inherit;
   cursor: inherit;
-  outline: none;
-  opacity: 0;
+
+  &:focus + ${PresentationalBit} {
+    outline: 2px solid blue;
+    color: ${COLORS.gray700};
+  }
+
+  &:hover + ${PresentationalBit} {
+    color: ${COLORS.black};
+  }
 `;
 
 export default Select;

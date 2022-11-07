@@ -11,8 +11,8 @@ const Select = ({ label, value, onChange, children }) => {
 
   return (
     <>
-      <VisuallyHidden>{label}</VisuallyHidden>
       <Container htmlFor="selectItems">
+        <VisuallyHidden>{label}</VisuallyHidden>
         <NativeSelect id="selectItems" value={value} onChange={onChange}>
           {children}
         </NativeSelect>

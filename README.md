@@ -52,33 +52,3 @@ You can fix this issue either by downgrading to Node 16, or by updating the `pac
 +   "start": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006 -s public",
   },
 ```
-
-For more info, check out the [Troubleshooting Guide](https://courses.joshwcomeau.com/troubleshooting) on the course platform.
-
-## The Components
-
-### ProgressBar
-
-The figma document mentions that this component should be "accessible". You can learn how to build a semantically-valid, accessible progress-bar component by reading this doc: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_progressbar_role
-
-This component uses a **box shadow**. We haven't seen this property yet! For now, you can achieve this effect by copying the following CSS declaration into your component:
-
-```css
-box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
-```
-
-We'll learn much more about the `box-shadow` property in future modules =)
-
-### Select
-
-The Select component will need a down-arrow icon! You can use the `chevron-down` ID with the `Icon` component.
-
-We want to use a native `<select>` tag in this component, so a bit of precursory HTML has been provided.
-
-This component also includes a function, `getDisplayedValue`. This component uses some React APIs to work out the text that should be displayed. The value isn't currently used, but you can make use of it if needed, depending on your implementation.
-
-### IconInput
-
-This component also uses the `Icon` component — the specific ID will be provided as a prop.
-
-This component requires bold text. You can achieve this look by using `font-weight: 700`.

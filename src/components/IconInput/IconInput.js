@@ -6,7 +6,14 @@ import { COLORS } from "../../constants";
 import Icon from "../Icon";
 import VisuallyHidden from "../VisuallyHidden";
 
-const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
+const IconInput = ({
+  label,
+  icon,
+  width = 250,
+  size,
+  placeholder,
+  ...delegated
+}) => {
   const {
     gap,
     strokeWidth,
@@ -25,6 +32,7 @@ const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
         "--y-spacing": ySpacing + "px",
         "--stroke-width": strokeWidth + "px",
       }}
+      {...delegated}
     >
       <VisuallyHidden>{label}</VisuallyHidden>
       <Icon stroke={strokeWidth} size={iconSize} id={icon} />
@@ -54,6 +62,7 @@ const sizeProps = {
 
 const Wrapper = styled.label`
   width: var(--width);
+  color: ${COLORS.gray700};
   display: flex;
   align-items: center;
   gap: var(--gap);
@@ -67,10 +76,14 @@ const Wrapper = styled.label`
     outline: 2px auto -webkit-focus-ring-color;
     outline-offset: 2px;
   }
+
+  &:hover {
+    color: ${COLORS.black};
+  }
 `;
 
 const NativeInput = styled.input`
-  color: ${COLORS.gray700};
+  color: inherit;
   font-weight: 700;
   padding: 0;
   background-color: transparent;
